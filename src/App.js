@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+/** @format */
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import "./App.css";
+import Papa from "papaparse";
+import { useEffect, useState } from "react";
+import csvFile from "./matches.csv";
+import DisplayBlock from "./components/DisplayBlock";
+
+const App = () => {
+	const [data, setData] = useState([]);
+	useEffect(() => {
+		Papa.parse(csvFile, {
+			download: true,
+			header: true,
+			complete: function (results) {
+				console.log(results.data);
+				setData(results.data);
+			},
+		});
+	}, []);
+
+	return (
+		<div>
+			<div>
+				{data.slice(0, 10).map((item, index) => {
+					return (
+						<div key={index}>
+							<DisplayBlock data={item} />
+						</div>
+					);
+				})}
+			</div>
+		</div>
+	);
+};
 
 export default App;
