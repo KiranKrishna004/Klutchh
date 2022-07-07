@@ -20,16 +20,14 @@ const App = () => {
 	}, []);
 
 	return (
-		<div>
-			<div>
-				{data.slice(0, 10).map((item, index) => {
-					return (
-						<div key={index}>
-							<DisplayBlock data={item} />
-						</div>
-					);
-				})}
-			</div>
+		<div className='lg:grid grid-cols-2 gap-2 xs:max-w-xl sm:max-w-xl md:max-w-3xl lg:max-w-7xl mx-auto'>
+			{data.slice(0, 10).map((item, index) => {
+				return (
+					<div key={index}>
+						<DisplayBlock data={item} />
+					</div>
+				);
+			})}
 		</div>
 	);
 };
